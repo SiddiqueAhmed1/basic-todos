@@ -1,3 +1,9 @@
 {
-  "staff": []
+  "todos": [
+    {
+      "id": "d49a",
+      "title": "All is well",
+      "type": "Pending"
+    }
+  ]
 }
