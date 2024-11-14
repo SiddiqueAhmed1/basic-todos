@@ -48,6 +48,7 @@ const Todos = () => {
       });
     }
     setTimeout(() => {
+      pendingTodos()
       getTodo()
     }, 1000);
   };
@@ -58,11 +59,21 @@ const Todos = () => {
     setTodo(response.data);
   };
 
-  // pending todo
-  const pendingTodos =async  () => {
-    const response = await axios.get("http://localhost:7070/todos?type=pending")
-    setPendingTodo(response.data)
+  // Function to fetch and filter pending todos
+  const pendingTodos = async () => {
+    try {
+
+        const response = await axios.get("http://localhost:7070/todos");
+        const data = response.data.filter((item) => item.type === 'Pending');
+        console.log("API Response:", response.data);
+        setPendingTodo(data);
+    } catch (error) {
+        console.error("Error fetching pending todos:", error);
+    }
   }
+  
+  
+
 
   useEffect(() => {
     pendingTodos()
@@ -94,7 +105,7 @@ const Todos = () => {
                   className="form-select mb-2"
                   aria-label="Default select example"
                 >
-                  <option selected>Open this select menu</option>
+                  <option defaultValue={open}>Open this select menu</option>
                   <option value="Pending">Pending</option>
                   <option value="Completed">Completed</option>
                   <option value="Deleted">Deleted</option>
@@ -123,7 +134,8 @@ const Todos = () => {
                 <ul>
                   {pendingTodo?.length > 0 ? (
                     pendingTodo.map((item, index) => (
-                      <li className="d-flex justify-content-between bg-warning p-2 align-items-center mb-2">
+                      
+                      <li key={index} className="d-flex justify-content-between bg-warning p-2 align-items-center mb-2">
                      {index + 1}. {item.title}
                       <button className="btn btn-sm btn-success">
                         Complete
@@ -145,5 +157,6 @@ const Todos = () => {
     </>
   );
 };
+
 
 export default Todos;

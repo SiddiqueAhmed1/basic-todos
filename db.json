@@ -1,8 +1,18 @@
 {
   "todos": [
     {
-      "id": "d49a",
+      "id": "cc91",
       "title": "All is well",
+      "type": "Pending"
+    },
+    {
+      "id": "93a7",
+      "title": "All is done",
+      "type": "Completed"
+    },
+    {
+      "id": "314c",
+      "title": "go to school",
       "type": "Pending"
     }
   ]
