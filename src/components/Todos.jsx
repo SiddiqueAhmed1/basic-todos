@@ -95,14 +95,15 @@ const Todos = () => {
 
   return (
     <>
-      <div className="container mt-3">
-        <div className="todos-header text-center mb-3">
-          <h1>Todos</h1>
-          <p>My Tasks</p>
-        </div>
-        <div className="todos-form ">
+      <div className="todos-header text-center mb-3">
+        <h1>Todo App</h1>
+        <p>My Tasks</p>
+      </div>
+      <hr />
+      <div className="todos-form ">
+        <div className="container mt-3">
           <div className="row justify-content-center">
-            <div className="col-lg-4 ">
+            <div className="col-lg-6  ">
               <form onSubmit={createTodo}>
                 <input
                   onChange={handleInput}
@@ -135,12 +136,12 @@ const Todos = () => {
             </div>
           </div>
         </div>
-        <hr />
+
         <div className="todos">
           <div className="row">
             <div className="col-lg-4 ">
               <h2 className=" d-inline-block p-3">Completed</h2>
-          
+
               <ul>
                 {completeTodo?.length > 0 ? (
                   completeTodo.map((item, index) => (
@@ -149,7 +150,9 @@ const Todos = () => {
                       className="d-flex justify-content-between bg-warning p-2 align-items-center mb-2"
                     >
                       {index + 1}. {item.title}
-                      <i style={{ fontSize :'30px', color : 'maroon'}} ><MdOutlineSentimentVerySatisfied ></MdOutlineSentimentVerySatisfied></i>
+                      <i style={{ fontSize: "30px", color: "maroon" }}>
+                        <MdOutlineSentimentVerySatisfied></MdOutlineSentimentVerySatisfied>
+                      </i>
                     </li>
                   ))
                 ) : (
@@ -160,19 +163,25 @@ const Todos = () => {
             <div className="col-lg-4  ">
               <div className="pending-todos">
                 <h2 className=" d-inline-block p-3">Pending</h2>
-              <hr />
+                <hr />
                 <ul>
                   {pendingTodo?.length > 0 ? (
                     pendingTodo.map((item, index) => (
-                      <li
-                        key={index}
-                        className='d-flex justify-content-between bg- p-2 align-items-center mb-2'
-                      >
-                        {index + 1}. {item.title}
-                        <button className="btn btn-sm btn-success">
-                          Complete
-                        </button>
-                      </li>
+                      <>
+                        <div className="card">
+                          <div className="card-body">
+                            <li
+                              key={index}
+                              className="d-flex justify-content-between bg- p-2 align-items-center mb-2"
+                            >
+                              {index + 1}. {item.title}
+                              <button className="btn btn-sm btn-success">
+                                Complete
+                              </button>
+                            </li>
+                          </div>
+                        </div>
+                      </>
                     ))
                   ) : (
                     <li>No todos found</li>
