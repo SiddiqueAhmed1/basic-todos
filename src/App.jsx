@@ -1,9 +1,9 @@
-import Todos from "./components/Todos"
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Ados from './components/Ados/Ados'
 const App = () => {
   return (
     <>
-      <Todos/>
+    <Ados/>
     </>
   )
 }

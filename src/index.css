@@ -11,5 +11,11 @@ body{
 }
 
 ul{
-  
+  padding: 0 !important;
+}
+li{
+  list-style: none;
+}
+li:hover{
+  background-color: #fff1f1;
 }
