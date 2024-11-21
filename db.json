@@ -1,19 +1,19 @@
 {
   "todos": [
     {
-      "id": "8eef",
-      "title": "Go to School today",
+      "id": "e44a",
+      "title": "go to shool",
       "type": "Pending"
     },
     {
-      "id": "59d9",
-      "title": "Shopping For Me",
+      "id": "d979",
+      "title": "I have no",
       "type": "Pending"
     },
     {
-      "id": "3f76",
-      "title": "Yes you know better",
-      "type": "Completed"
+      "id": "",
+      "title": "Todo app",
+      "type": "Pending"
     }
   ]
 }
