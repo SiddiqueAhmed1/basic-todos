@@ -1,3 +1,19 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "id": "8eef",
+      "title": "Go to School today",
+      "type": "Pending"
+    },
+    {
+      "id": "59d9",
+      "title": "Shopping For Me",
+      "type": "Pending"
+    },
+    {
+      "id": "3f76",
+      "title": "Yes you know better",
+      "type": "Completed"
+    }
+  ]
 }
