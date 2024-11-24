@@ -17,7 +17,9 @@ const adosReducer = (state, action) => {
         item.id === action.payload.id ? { ...item, ...action.payload } : item
       );
     case "FILTER_ADOS":
-      return state.filter((item) => item.type === action.payload.type) ? action.payload :"no todos found" 
+      return state.filter((item) => item.type === action.payload.type)
+        ? action.payload
+        : state;
     case "CREATE":
       return [...state, action.payload];
     default:
@@ -28,6 +30,10 @@ const adosReducer = (state, action) => {
 const Ados = () => {
   const [ados, dispatch] = useReducer(adosReducer, []);
 
+  const [filterType, setFilterType] = useState("");
+
+  const [isDatabaseEmpty, setIsDatabaseEmpty] = useState(false); // Tracks if database is empty
+
   // input value
   const [input, setInput] = useState({
     title: "",
@@ -36,9 +42,15 @@ const Ados = () => {
 
   // get todos from api
   const getTodo = async () => {
-    const response = await axios.get("http://localhost:7070/todos");
-    dispatch({ type: "GET_TODOS", payload: response.data });
+    try {
+      const response = await axios.get("http://localhost:7070/todos");
+      setIsDatabaseEmpty(response.data.length === 0); // Update database empty status
+      dispatch({ type: "GET_TODOS", payload: response.data });
+    } catch (error) {
+      console.error("Error fetching todos:", error);
+    }
   };
+  
 
   // create todos
   const createTodo = async () => {
@@ -89,6 +101,7 @@ const Ados = () => {
         draggable: true,
         theme: "dark",
       });
+      getTodo()
     }
   };
 
@@ -118,10 +131,16 @@ const Ados = () => {
 
   //type wise todos
   const handleType = async (type) => {
-    const response = await axios.get(
-      `http://localhost:7070/todos?type=${type}`
-    );
-    dispatch({ type: "FILTER_ADOS", payload: response.data });
+    setFilterType(type);
+
+    if (type) {
+      const response = await axios.get(
+        `http://localhost:7070/todos?type=${type}`
+      );
+      dispatch({ type: "FILTER_ADOS", payload: response.data });
+    } else{
+      getTodo()
+    }
   };
 
   useEffect(() => {
@@ -195,14 +214,15 @@ const Ados = () => {
 
             <div className="todos-body">
               <ul>
-                {ados?.length > 0 ? (
+                {!isDatabaseEmpty && (
                   <>
                     {" "}
                     <div className="div d-flex align-middle">
                       <span className="mt-1 me-2">Sort by:</span>{" "}
                       <select
                         onChange={(e) => handleType(e.target.value)}
-                        name=""
+                        name="filterType"
+                        value={filterType}
                         className="form-select w-25 mb-2"
                       >
                         <option value="">All</option>
@@ -212,8 +232,6 @@ const Ados = () => {
                       </select>
                     </div>
                   </>
-                ) : (
-                  ""
                 )}
 
                 {ados?.length > 0 ? (
@@ -251,6 +269,13 @@ const Ados = () => {
                       </>
                     );
                   })
+                ) : filterType ? (
+                  <div className="no-ados-found text-center">
+                    <h3>{`No ${filterType} todos found`}</h3>
+                    <i>
+                      <FaRegCopy />
+                    </i>
+                  </div>
                 ) : (
                   <>
                     <div className="no-ados-found text-center">

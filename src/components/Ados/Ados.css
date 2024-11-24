@@ -21,6 +21,9 @@
     .todos-body  ul:first-child{
         margin-top: 100px;
     }
+    .todos-body .no-ados-found{
+        margin-top: 150px !important;
+    }
 }
 @media screen and (max-width: 768px) {
     .todos-body  ul:first-child{
