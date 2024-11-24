@@ -1,11 +1,10 @@
 import axios from "axios";
-import type from './type'
+import type from "./type";
 import { useEffect, useReducer, useState } from "react";
 import { FaRegCopy, FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Ados.css";
-
 
 const adosReducer = (state, action) => {
   switch (action.type) {
@@ -18,7 +17,7 @@ const adosReducer = (state, action) => {
         item.id === action.payload.id ? { ...item, ...action.payload } : item
       );
     case "FILTER_ADOS":
-      return state.filter((data) => data.type === action.payload);
+      return state.filter((item) => item.type === action.payload.type) ? action.payload :"no todos found" 
     case "CREATE":
       return [...state, action.payload];
     default:
@@ -43,7 +42,6 @@ const Ados = () => {
 
   // create todos
   const createTodo = async () => {
-    const response = await axios.get(`http://localhost:7070/todos`).data;
     if (!input.title) {
       toast.error("Opps, All fields are required", {
         position: "top-right",
@@ -58,7 +56,12 @@ const Ados = () => {
           backgroundColor: "white",
         },
       });
-    } else if (ados.find((item) => item.title.trim() === input.title.trim() && item.type === input.type)) {
+    } else if (
+      ados.find(
+        (item) =>
+          item.title.trim() === input.title.trim() && item.type === input.type
+      )
+    ) {
       alert("Data already exist");
     } else if (input.id) {
       const response = await axios.put(
@@ -78,7 +81,7 @@ const Ados = () => {
         type: "Pending",
       });
       toast.success("Todo Create Succesful", {
-        position: "top-right",
+        position: "top-left",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -114,8 +117,11 @@ const Ados = () => {
   };
 
   //type wise todos
-  const handleType = (type) => {
-    dispatch({ type: "FILTER_ADOS", payload: type });
+  const handleType = async (type) => {
+    const response = await axios.get(
+      `http://localhost:7070/todos?type=${type}`
+    );
+    dispatch({ type: "FILTER_ADOS", payload: response.data });
   };
 
   useEffect(() => {
@@ -134,7 +140,12 @@ const Ados = () => {
       <div className="container mt-3">
         <div className="row justify-content-center">
           <div className="col-lg-6">
-            <h2 className="mb-3 text-center" style={{ color: '#9ACD32', fontSize:'40px'}}>Todo App</h2>
+            <h2
+              className="mb-3 text-center"
+              style={{ color: "#9ACD32", fontSize: "40px" }}
+            >
+              Todo App
+            </h2>
             <div className="card shadow">
               <div className="card-body">
                 <div className="todos-form d-flex gap-2">
@@ -183,15 +194,27 @@ const Ados = () => {
             </div>
 
             <div className="todos-body">
-            
               <ul>
-              {ados?.length > 0 ? <> <div className="div d-flex align-middle">
-                <span className="mt-1 me-2">Sort by:</span> <select name="" className="form-select w-25 mb-2">
-                <option value="Pending">Pending</option>
-                <option value="Completed">Completed</option>
-                <option value="Deleted">Deleted</option>
-                </select>
-                </div></> : ''}
+                {ados?.length > 0 ? (
+                  <>
+                    {" "}
+                    <div className="div d-flex align-middle">
+                      <span className="mt-1 me-2">Sort by:</span>{" "}
+                      <select
+                        onChange={(e) => handleType(e.target.value)}
+                        name=""
+                        className="form-select w-25 mb-2"
+                      >
+                        <option value="">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Deleted">Deleted</option>
+                      </select>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
 
                 {ados?.length > 0 ? (
                   ados.map((item, index) => {
@@ -199,9 +222,12 @@ const Ados = () => {
                       <>
                         <div
                           className="found-ados card p-2 align-middle mb-2"
-                          style={{ backgroundColor: type(item.type).background }}
+                          style={{
+                            backgroundColor: type(item.type).background,
+                          }}
                         >
-                          <li style={{ color: type(item.type).color}}
+                          <li
+                            style={{ color: type(item.type).color }}
                             className=" d-flex justify-content-between align-middle"
                             key={index}
                           >
@@ -227,12 +253,9 @@ const Ados = () => {
                   })
                 ) : (
                   <>
-                    <div
-                      className="no-ados-found text-center"
-                      style={{ marginTop: "140px" }}
-                    >
+                    <div className="no-ados-found text-center">
                       <h3 style={{ marginBottom: "-30px" }}>No todos found</h3>
-                      <i style={{ fontSize: "150px", color: "yellowgreen" }}>
+                      <i>
                         <FaRegCopy />
                       </i>
                     </div>

@@ -1,6 +1,29 @@
 .todos-body  ul:first-child{
-    margin-top: 100px;
+    margin-top: 150px;
 }
-.todos-body  ul li{
-    margin-top: 3px;
+.todos-body .no-ados-found{
+    margin-top: 0px
+}
+.todos-body .no-ados-found i{
+    font-size: 150px;
+     color: yellowgreen;
+}
+/* responsiveness */
+@media screen and (max-width: 1920px) {
+    .todos-body  ul:first-child{
+        margin-top: 120px;
+    }
+    .todos-body .no-ados-found{
+        margin-top: 250px !important;
+    }
+}
+@media screen and (max-width: 1366px) {
+    .todos-body  ul:first-child{
+        margin-top: 100px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .todos-body  ul:first-child{
+        margin-top: 50px;
+    }
 }
