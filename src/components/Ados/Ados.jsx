@@ -5,6 +5,9 @@ import { FaRegCopy, FaRegEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Ados.css";
+import { MdOutlinePendingActions } from "react-icons/md";
+import { AiOutlineFileDone } from "react-icons/ai";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 const adosReducer = (state, action) => {
   switch (action.type) {
@@ -270,16 +273,17 @@ const Ados = () => {
                     );
                   })
                 ) : filterType ? (
-                  <div className="no-ados-found text-center">
-                    <h3>{`No ${filterType} todos found`}</h3>
+                  <div className="no-typeAdos-found text-center">
+                    <h3 style={{ marginBottom: "-30px" }}>{`No ${filterType} todos found`}</h3>
                     <i>
-                      <FaRegCopy />
+                      {filterType === 'Deleted' ? <FaRegTrashCan style={{color : '#BB2D3B'}}/>:filterType === 'Pending' ? <MdOutlinePendingActions style={{color:'lightgreen'}} />: <AiOutlineFileDone style={{color : '#146c43'}}/>}
+                      
                     </i>
                   </div>
                 ) : (
                   <>
                     <div className="no-ados-found text-center">
-                      <h3 style={{ marginBottom: "-30px" }}>No todos found</h3>
+                      <h3 style={{ marginBottom: "-20px" }}>No todos found</h3>
                       <i>
                         <FaRegCopy />
                       </i>

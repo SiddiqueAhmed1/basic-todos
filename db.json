@@ -1,29 +1,3 @@
 {
-  "todos": [
-    {
-      "id": "73a6",
-      "title": "fd",
-      "type": "Pending"
-    },
-    {
-      "id": "d688",
-      "title": "fdsf",
-      "type": "Pending"
-    },
-    {
-      "id": "07c2",
-      "title": "fdfsd",
-      "type": "Completed"
-    },
-    {
-      "id": "437c",
-      "title": "fdfds",
-      "type": "Pending"
-    },
-    {
-      "id": "60b7",
-      "title": "fdsf",
-      "type": "Completed"
-    }
-  ]
+  "todos": []
 }

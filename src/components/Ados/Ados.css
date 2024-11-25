@@ -4,7 +4,7 @@
 .todos-body .no-ados-found{
     margin-top: 0px
 }
-.todos-body .no-ados-found i{
+.todos-body .no-ados-found i, .no-typeAdos-found  i{
     font-size: 150px;
      color: yellowgreen;
 }
@@ -16,6 +16,9 @@
     .todos-body .no-ados-found{
         margin-top: 250px !important;
     }
+    .no-typeAdos-found{
+        margin-top: 130px !important;
+    }
 }
 @media screen and (max-width: 1366px) {
     .todos-body  ul:first-child{
@@ -24,9 +27,18 @@
     .todos-body .no-ados-found{
         margin-top: 150px !important;
     }
+    .no-typeAdos-found{
+        margin-top: 100px !important;
+    }
 }
 @media screen and (max-width: 768px) {
     .todos-body  ul:first-child{
         margin-top: 50px;
+    }
+    .todos-body .no-ados-found{
+        margin-top: 100px !important;
+    }
+    .no-typeAdos-found{
+        margin-top: 50px !important;
     }
 }
